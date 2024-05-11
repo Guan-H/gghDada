@@ -1,3 +1,3 @@
 export default definePageConfig({
-  navigationBarTitleText: 'MBTI性格测试'
+  // navigationBarTitleText: 'MBTI性格测试'
 })
