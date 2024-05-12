@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {View} from '@tarojs/components'
-// import Taro from "@tarojs/taro";
+import Taro from "@tarojs/taro";
 import {AtButton, AtRadio} from "taro-ui";
 import "taro-ui/dist/style/components/button.scss" // 按需引入
 import questions from '../../data/questions.json'
@@ -13,24 +13,24 @@ export default () => {
   // 当前题目序号（从 1 开始）
   const [current, setCurrent] = useState<number>(1);
   //当前题目
-  const [currentQuestion,setCurrentQuestion] = useState(questions[0])
+  const [currentQuestion, setCurrentQuestion] = useState(questions[0])
   const radioOptions = currentQuestion.options.map((option) => {
     return {
-      label:`${option.key}.${option.value}`,
-      value:option.key
+      label: `${option.key}.${option.value}`,
+      value: option.key
     }
   })
 
   //当前回答
-  const [currenAnswer,setCurrentAnswer] = useState<String>();
+  const [currenAnswer, setCurrentAnswer] = useState<String>();
   //回答列表
   const [answerList] = useState<String[]>([]);
 
   //序号变化时,切换当前题目和当前回答
-  useEffect(()=>{
-    setCurrentQuestion(questions[current -1]);
-    setCurrentAnswer(answerList[current -1]);
-  },[current])
+  useEffect(() => {
+    setCurrentQuestion(questions[current - 1]);
+    setCurrentAnswer(answerList[current - 1]);
+  }, [current])
 
   return (
     <View className='doQuestionPage'>
@@ -38,42 +38,53 @@ export default () => {
         {current}、{currentQuestion.title}
       </View>
       <View className="options-wrapper">
-        <AtRadio value={currenAnswer} options={radioOptions} onClick={(value)=>{
+        <AtRadio value={currenAnswer} options={radioOptions} onClick={(value) => {
           setCurrentAnswer(value)
           //记录回答
-          answerList[current -1 ] = value;
+          answerList[current - 1] = value;
         }}
         />
       </View>
       {current < questions.length && (
-          <AtButton
-            type="primary"
-            size="normal"
-            className="controlBtn"
-            circle
-            disabled={!currenAnswer}
-            // onClick={()=>{
-            //   Taro.navigateTo({
-            //     url:"/pages/result/index"
-            //   })
-            // }}
-          >
-            查看结果
-          </AtButton>
-      )}
-      {current > 1 && (
-          <AtButton
-            size="normal"
-            className="controlBtn"
-            circle
-            onClick={()=>{
-              setCurrent(current - 1);
-            }}
-          >
-            上一题
-          </AtButton>
+        <AtButton
+          size="normal"
+          className="controlBtn"
+          circle
+          disabled={!currenAnswer}
+          onClick={() => {
+            setCurrent(current + 1);
+          }}
+        >
+          下一题
+        </AtButton>
       )
       }
+      {current == questions.length && (
+        <AtButton
+          size="normal"
+          className="controlBtn"
+          circle
+          disabled={!currenAnswer}
+          onClick={() => {
+            Taro.navigateTo({
+              url: "/pages/result/index"
+            })
+          }}
+        >
+          查看结果
+        </AtButton>
+      )}
+      {current > 1 && (
+        <AtButton
+          circle
+          className="upperBtn"
+          onClick={() => {
+            setCurrent(current - 1);
+          }}
+        >
+          上一题
+        </AtButton>
+      )}
       <GlobalFooter />
     </View>
   );

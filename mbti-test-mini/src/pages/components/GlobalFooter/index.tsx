@@ -7,7 +7,7 @@ import "./index.scss";
 export default () => {
   return (
     <View className="globalFooter">
-      作者：飞上天
+      作者：石页s
     </View>
   );
 };
