@@ -21,7 +21,7 @@ export default () => {
         circle
         className="enterBtn"
         onClick={() => {
-          Taro.navigateTo({
+          Taro.reLaunch({
             url: "/pages/index/index"
           })
         }}
