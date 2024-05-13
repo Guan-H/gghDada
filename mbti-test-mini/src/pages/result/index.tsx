@@ -6,15 +6,27 @@ import question_result from '../../data/question_results.json'
 import './index.scss'
 import headerBg from '../../assets/headerBg.jpg'
 import GlobalFooter from "../components/GlobalFooter";
+import {getBestQuestionResult} from "../../utils/syUtils";
+import questions from '../../data/questions.json'
 
 
 export default () => {
 
+  const answerList = Taro.getStorageSync("answerList")
+  if(!answerList || answerList.length < 1){
+    Taro.showToast({
+      title:"答案为空",
+      icon:"error",
+      duration:3000
+    })
+  }
+  //测试结果
+  const result =  getBestQuestionResult(answerList,questions,question_result)
 
   return (
     <View className="resultPage">
-      <View className="at-article__h1 title">{question_result[0].resultName}</View>
-      <View className="at-article__h3 subTitle">{question_result[0].resultDesc}</View>
+      <View className="at-article__h1 title">{result.resultName}</View>
+      <View className="at-article__h3 subTitle">{result.resultDesc}</View>
       <AtButton
         type="primary"
         size="normal"

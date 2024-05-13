@@ -11,8 +11,9 @@ export default () => {
     return (
         <View className='indexPage'>
             <View className="at-article__h1 title">MBTI 测试</View>
-            <View className="at-article__h3 subTitle">
-                测出你是谁
+            <View className="at-article__h2 subTitle">
+              <View className='at-article__p'>请根据你实际做法选择选项，而非期望做法。选项之间并没有对错好坏的区分。</View>
+              <View className='at-article__p'>MBTI人格类型是不存在好坏之分，每种类型都有他们自己同样宝贵的天赋、优势和贡献。</View>
             </View>
             <AtButton
               type="primary"

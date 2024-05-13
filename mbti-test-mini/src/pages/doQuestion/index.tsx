@@ -66,6 +66,8 @@ export default () => {
           circle
           disabled={!currenAnswer}
           onClick={() => {
+            //传递答案
+            Taro.setStorageSync("answerList", answerList);
             Taro.navigateTo({
               url: "/pages/result/index"
             })
